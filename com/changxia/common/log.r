@@ -1,0 +1,1 @@
+/home/taozw/log/log.RelatedHotWordsModule

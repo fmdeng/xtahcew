@@ -1,0 +1,13 @@
+该目录下程序解决的问题：
+    通过online接口获得文本数据
+
+相关文件
+   ReaderInterface.py  定义了获取数据的相关接口
+   OnlineReaderUtil.py  解析online搜索结果的相关函数。online的数据分为两部分，一部分是来自solr的数据，另一部分是来自Hbase的数据
+   OnlineTimeReader.py  给定query， online的频道(news forum, report 等), 搜索时间范围(秒) 获得数据
+
+TODOLIST:
+  Online 提供了转发服务，我们可以实现从online直接获取solr的结果。
+  这样做的好处：
+      不需要额外做一些稳定性的工作。如一台solr坏了，我们换另外一台solr。
+      以后接口统一，不是现在的状态：又有solr， 又有online

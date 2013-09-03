@@ -1,0 +1,37 @@
+=简介=
+抽取用到的分词服务
+=调用方法=
+    client = SeggerClient([("192.168.23.32",8111)])
+    print client.connect()
+    s="这是一个例子"
+    (a,b,flag) = client.getMixSegmentParse(s) 
+    print a
+    print b
+
+    b : 分词信息加上附属信息
+    a : 纯的分词信息
+
+    b 的格式：以“ 襄樊市/1:2:cm_entity_location:ns:1:SBV ” 为例 
+      *襄樊市是词本身 后面的/是词与其附属信息的分隔符
+      *1 表示 襄樊市的位置信息, 它是第一个词
+      *2 词的类型   
+          我们有以下类型：
+          STOP_   0
+          PUNC_   1
+          COMMON_ 2
+          STOCK_  3
+          FUND_   4
+          NUMBER_ 5
+          DATE_TIME_ 6
+          PERSON_    7
+          NIL_TYPE_ 255
+      *cm_entity_location  词典配置的附属信息， 
+         目前有用的信息有
+            cm_entity_location
+            cm_entity_people
+            cm_entity_org
+            cm_entity_university
+      *ns POS 参考 http://172.20.0.52/wiki/index.php/Ltp%E5%B7%A5%E5%85%B7%E4%BB%8B%E7%BB%8D  分词服务
+      *1:SBV  主谓关系 襄樊市是主语， 谓语是 2（ 1 + 1） 号位置的词  参考 http://172.20.0.52/wiki/index.php/Ltp%E5%B7%A5%E5%85%B7%E4%BB%8B%E7%BB%8D#parser.E6.9C.8D.E5.8A.A1
+
+

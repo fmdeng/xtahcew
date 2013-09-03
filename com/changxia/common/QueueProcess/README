@@ -1,0 +1,12 @@
+描述： 提供多进程处理multiprocessing.Queue的框架；
+使用方法:
+    1. 实现Processor(process函数必须实现)(注意: process(item) 参数item可以为任意结构，按自己需求控制)
+    2. 继承BaseQueueAppWeb实现自己的webServer，参考AppWebTest.py
+       example AppWebTest.py:
+        a. python AppWebTest.py 1234
+        b. curl "http://192.168.23.32:1234/test?action=GET"
+
+    3. 实例化QueueWorker，Processor，BaseQueueAppWeb，启动Server(参考application.plda.PldaQueueWorker.py)
+
+注意：
+    Processor中尽量不要使用 "动态" 成员变量，非要使用时请用multiprocessing中的Array，Value，sharedctypes, Manager

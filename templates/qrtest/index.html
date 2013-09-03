@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+	<head><title>二维码生成</title></head>
+	<body>
+		<h1>输入你需要编码的信息</h1>
+		<form method="get" action="/qrtest">
+		<p>请输入<br><input type="text" name="content" value="{{content}}">
+        </p>
+		<input type="submit">
+        <p>
+         <img class="code fl" src="{{qrcodeimg}}" alt="二维码" >
+        </p>
+		</form>
+	</body>
+</html>

@@ -1,0 +1,118 @@
+==项目需求说明==
+我们的软件通过微信连接商家和最终的消费者。简要的产品的使用场景介绍如下，后续的章节将详细介绍。
+对于商家:
+    商家首先有一个公众平台(http://mp.weixin.qq.com/), 商家通过我们的系统获得一个自有的服务接口，商家通过该接口将和最终的消费者进行互动。
+    商家登录到我们的管理后台来完成管理自己业务的所有工作，包括
+    * 设置门店
+    * 设置管理员用户名，密码
+    * 设置会员卡等级
+    * 建设微网站
+    * 发布活动： 刮刮卡，大转盘，答题，投票，线下线上活动等
+对于消费者:
+    消费者通过关注商家的微信可以参与各种营销活动，可以获得会员卡，销售会员卡带来的优惠
+
+==项目创新点==
+1. 商家通过微信开展各种营销活动
+2. 消费者不用带各种会员卡
+
+==项目风险说明==
+
+
+
+==项目的盈利模式==
+
+
+==商家场景说明==
+
+
+===我们为商家开通后台==
+    用户注册我们的系统以后，在没有付款之前，用户可以使用3天。 (添加粉丝服务）
+    用户登录我们的系统以后，系统将提供一个公众平台的URL, 用户填写token之后，点击连接微信。
+    用户登录https://mp.weixin.qq.com，高级功能，开发模式，成为开发者，填写上面的URL和token点击提交。至此我们的后台和用户的微信公众平台接通。
+    id_shops
+    user_name
+    password
+    phone_number
+    token
+    wechat_id
+    wechat_name
+    active
+    register_time
+
+===设置门店===
+    默认情况下，用户有一个总店,店铺的信息有 店铺名称，地址，电话
+    id_sector
+    address
+    phone_number
+    foreign: id_shops
+
+===设置管理员用户名，密码===
+   id
+   name
+   password
+   foreign: id_secor
+   foreign: id_shops
+
+===设置会员卡等级===
+   id_shops
+   rolename
+   consume_price
+
+
+===建设微网站===
+
+
+
+===发布活动===
+activity_id
+ship_id
+type
+content json format
+time
+
+刮刮卡
+  {  [ { 'name':"", "prob":"", 'number':"", "content":""} ...] }
+大转盘
+  {  [ { 'name':"", "prob":"", 'number':"", "content":""} ...] }
+
+答题
+  {  [ { 'question': "", "answer": "", "score":} ...] }
+
+投票
+  {  [ { 'question': "", "count": ""} ...] }
+
+线下线上
+  {"name":"", "time":"", "location":""}
+
+
+==用户场景说明==
+1. 用户关注
+   wechat_id  全局用户表
+
+   user_we_chat_id
+   shop_id
+   focus_time
+   leave_time
+   two_dimension_code:
+
+2. 用户登录微网站
+
+3. 用户获得会员卡
+
+4. 用户参与活动
+    activity_code, 
+    content=""
+    wechat_id
+
+5. 用户消费&商家记录
+    we_chat_id
+    shop_id
+    sector_id
+    money
+    role
+
+6. 用户行为分析 日志
+   we_chat_id
+   time
+
+   shop_id

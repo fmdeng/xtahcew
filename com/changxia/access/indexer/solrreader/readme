@@ -1,0 +1,43 @@
+===SolrReader.py===
+
+*初始化 solrreader = SolrReader(solr_url,reconnect_maxcnt = 2)
+    solr_url : string or list
+    eg : solr_url = "http://192.168.201.63:10000/solr/select?"
+      or solr_url = ["http://192.168.201.63:10000/solr/select?","http://192.168.201.61:10000/solr/select?"]
+    reconnect_maxcnt : 最大重连次数
+
+* process(self, query, need_param=set(), rows=0, last_day=5, end_day="",  solr_param={})    
+    # @param query :  solr query
+    # @param solr_param : dict, solr其他需要加的参数 ,
+    # @param need_param : set, 需要的solr字段
+    # @param rows : solr 搜索参数
+    # @param lasy_day : solr搜索时间天数, 结束时间以 end_day 为准
+    # @param end_day : solr搜索的结束时间, format :  %Y-%m-%d  eg : 2012-12-04
+    # return : flag , true or false
+    #          list , list里的每个元素是一个dict, dict的key是need_param中的字段
+    # 返回指定的结果
+
+* getSolrRawResult(self, query, rows=0, last_day=5, end_day="", solr_param={})
+    # all params as the same as function process
+    # return flag : true or false
+    #        json_format : the solr raw result (has json_load)
+    # 返回json的原始结果, dict类型
+
+* parserRelatedStock(stockstr)
+    @staticmethod
+    # stockstr : RelatedStock 字段内容  eg : '444444 6.448696:1:14 300033 0.500000:0:1'
+    # return  : dict  key : stock code ;value : 三元组(score, titleFre, contentFre )
+
+* parserClassification(classiferStr)
+    @staticmethod
+    # classiferStr : Classification 字段内容 eg : -1:0.979535 1000000:1 1075:0.725315 
+    # return : dict key : cid ; value : score(string)
+
+* accessSolrByMonth(self, query, month, prows, raw_fq=[], raw_param={})
+    #提供按月搜索新闻,使搜到的新闻尽可能的分散
+    # @param query : 
+    # @param month : 搜索的月数
+    # @param prows : 每个月搜索量
+    # 其余参数同上
+    # return ： 同上 list
+

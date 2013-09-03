@@ -1,0 +1,58 @@
+Index: SolrDocument.py
+===================================================================
+--- SolrDocument.py	(revision 67873)
++++ SolrDocument.py	(working copy)
+@@ -17,7 +17,7 @@
+     RESPONSE_TAG="response"
+     HEADER_TAG = "responseHeader"
+     QTIME_TAG = "QTime"
+-
++    
+     """connect solr"""
+     def __init__(self, solr_address):
+         self.solr_address = solr_address
+@@ -34,7 +34,21 @@
+         self.add_time = 0
+         self.commit_cnt = 0
+         self.commit_time = 0
++        self.connection_limit = 10
++        self.add_limit = 3000
+ 
++    def setConnectLimit(self, limit):
++        self.connection_limit = limit
++
++    def getConnectLimit(self):
++        return self.connection_limit
++
++    def setAddLimit(self, cnt):
++        self.add_limit = cnt
++    
++    def getAddLimit(self):
++        return self.add_limit
++
+     def close(self):
+         if self.solrConnection <> None:
+             try:
+@@ -65,10 +79,10 @@
+                 self.solrConnection = None        
+                 logging.warn( str(e))
+         if self.solrConnection == None:
+-            reportNagios("Solr Connection Failed: "+ str(self.solr_address), NAGIOS_CRITICAL, NAGIOS_TYPE)
++            #reportNagios("Solr Connection Failed: "+ str(self.solr_address), NAGIOS_CRITICAL, NAGIOS_TYPE)
+             """we never restart the engine for this error"""
+-            if self.error_cnt > SOLR_LIMIT_WRONG:
+-                needManCheck("Solr Connection Failed: "+ str(self.solr_address))
++            if self.error_cnt > self.getConnectLimit():
++                logging.error("Solr connection Failed" + str(self.solr_address))
+ 
+     """return a dic from doc_str
+        the format of doc_str is name=value<tab>name=value<tab>...name=value
+@@ -194,7 +208,7 @@
+                 self.add_time = self.add_time + pass_time
+                 self.doc_added_num = self.doc_added_num + len(dics)
+                 logging.info("Add A doc OK")
+-                if self.doc_added_num > NUM_ADD_COMMIT:
++                if self.doc_added_num > self.getAddLimit(): #NUM_ADD_COMMIT:
+                     self.commit()
+                 return True
+             except SolrException, e:

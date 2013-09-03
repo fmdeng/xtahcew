@@ -1,0 +1,4 @@
+zookeeper安装程序
+easy_install kazoo
+
+参见：http://kazoo.readthedocs.org/en/latest/basic_usage.html
