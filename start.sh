@@ -1,4 +1,4 @@
-`ps xf | grep WebServer.py | grep -v 'grep' | awk '{print $2}' | xargs kill`
+`ps xf | grep WebServer.py | grep -v 'grep' | awk '{print $1}' | xargs kill`
 sleep 2
 if [ $# -eq 1 ]; then
     if [ $1 = 'TEST' -o $1 = 'PROD' ]; then

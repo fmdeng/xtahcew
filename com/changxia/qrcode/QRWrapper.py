@@ -38,6 +38,7 @@ class QRWrapper(object):
             try:
                 if filename == None:
                     filename = get_uid(content ) + ".jpeg"
+                logging.info("generate file " + filename)
                 img = qrcode.make(content)
                 abs_filename = self.dir_name + "/" + filename
                 img.save(abs_filename)
@@ -51,5 +52,5 @@ class QRWrapper(object):
 
 if __name__ == "__main__":
    qr_code_wrapper = QRWrapper("./")
-   qr_code_wrapper.generateQRCode(sys.argv[1], sys.argv[2])
-   qr_code_wrapper.generateQRCode(sys.argv[3] )
+   #qr_code_wrapper.generateQRCode(sys.argv[1], sys.argv[2])
+   print qr_code_wrapper.generateQRCode(sys.argv[1] )
