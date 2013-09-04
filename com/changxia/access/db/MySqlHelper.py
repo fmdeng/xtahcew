@@ -15,7 +15,7 @@ class MySqlHelper:
         打开一个数据库连接
         '''
         try:
-            conn = MySQLdb.connect(host=host_str, port=port_str, user=user_str, passwd=password_str, db = db_str, reconnect=1)
+            conn = MySQLdb.connect(host=host_str, port=port_str, user=user_str, passwd=password_str, db = db_str )
             self.write(conn,"set names utf8")
 
             logging.info("MYSQL DB CONNECTION OK ....")
@@ -34,7 +34,6 @@ class MySqlHelper:
         如果指定了need_count而且need_count大于0，最多放回need_count个结果
         如果执行出错，返回None
         '''
-        conn.ping()
         lines = []
         try:
             cursor = conn.cursor ()
@@ -66,7 +65,6 @@ class MySqlHelper:
         return self.write(conn,"set names utf8")
     def write(self, conn, command):
         try:
-            conn.ping()
             cursor = conn.cursor ()
             cursor.execute("set names utf8")
             cursor.execute(command)
@@ -85,17 +83,16 @@ class MySqlHelper:
 
 if __name__ == "__main__":
     mysql  = MySqlHelper()
-    handle = mysql.open("172.20.0.52", 3306 , "wc" ,"kernel", "web_stockpick")
+    handle = mysql.open("localhost", 3306 , "wechat" ,"wechat", "wechat")
     
     #handle = mysql.open("192.168.23.105", 3306 , "root" ,"kernel", "textclass")
     sql_str = "REPLACE INTO human_ontology(task_name,subject_uri,subject_label,predicate_uri,predicate_label,literal,source_text,source_uri) VALUES('%s','%s','%s','%s','%s','%s','%s','%s')"
     sql = """SELECT c.`id`,c.`name`,count(*) FROM `concept_list` as c,search_admin.norwd_wordslist as w where c.`id`=w.typeid group by c.`id` order by c.id desc """
     sql = """SELECT * FROM `ner_entity` WHERE status = '1' AND type = 'PRO' AND task NOT LIKE 'ifind%'"""
     sql = ''' SELECT * FROM `rel_product_stock` where task like '%tao%' '''
-    sql = """ select * from updatedict """
+    sql = """ SELECT count(*) FROM `customer` WHERE 1"""
     data = mysql.readlines(handle, sql)
     print data
     for item in data:
         item = item.strip().split("\t")
-
-        print item[2], item[3], item[4]
+        print item
