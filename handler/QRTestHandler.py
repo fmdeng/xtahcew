@@ -19,7 +19,8 @@ class QRTestHandler(tornado.web.RequestHandler):
     
     def get(self):
         self.qrwrapper = QRWrapper(QRCODE_DIR)
-        input_content = self.get_argument('content')
+        input_content = self.get_argument('content', default="http://www.iwencai.com/")
+        input_content = input_content.encode("utf-8")
         if input_content == None:
             input_content = "http://www.iwencai.com/"
         logging.info("get content " + input_content)

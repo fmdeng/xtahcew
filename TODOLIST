@@ -1,4 +1,13 @@
 0. 数据库脚本准备，方便在任何地方搭建开发环境
+   ==python 访问数据库==
+   A. sudo apt-get install libmysqlclient-dev   
+   B. https://pypi.python.org/pypi/MySQL-python/1.2.4#downloads 
+   C. 解压 cd MySQL-python/1.2.4
+   C. 修改 setup_proxy.py : mysql_config.path = "/usr/bin/mysql_config"
+   D. python setup.py build ; python setup.py install
+   E. 测试 cd com/changxia/access/db ; python MySqlHelper.py
+   ==移库到公司的库中==
+   fuming
 1. 实现python链接到微信的协议
 2. 实现数据库操作的模块
 3. 完成template static的设计 
